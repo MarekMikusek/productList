@@ -11,6 +11,10 @@
 |
 */
 
+Route::post('/products', 'ProductsController@store');
+Route::delete('/products/{id}', 'ProductsController@destroy');
+Route::patch('/products/{product}', 'ProductsController@update');
+
 Route::get('/', function () {
     return view('welcome');
 });
