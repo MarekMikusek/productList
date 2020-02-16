@@ -15,6 +15,10 @@ Route::post('/products', 'ProductsController@store');
 Route::delete('/products/{id}', 'ProductsController@destroy');
 Route::patch('/products/{product}', 'ProductsController@update');
 
+Route::post('/prices', 'PricesController@store');
+Route::patch('/prices/{price}', 'PricesController@update');
+Route::delete('/prices/{price}', 'PricesController@destroy');
+
 Route::get('/', function () {
     return view('welcome');
 });
