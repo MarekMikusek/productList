@@ -12,8 +12,11 @@
 */
 
 Route::post('/products', 'ProductsController@store');
+Route::get('/products/create', 'ProductsController@create');
+Route::get('/products/{product}', 'ProductsController@show');
 Route::delete('/products/{id}', 'ProductsController@destroy');
 Route::patch('/products/{product}', 'ProductsController@update');
+Route::get('/products', 'ProductsController@index');
 
 Route::post('/prices', 'PricesController@store');
 Route::patch('/prices/{price}', 'PricesController@update');
