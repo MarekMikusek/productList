@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Product;
+use App\Price;
 
 class ProductTest extends TestCase {
 
@@ -24,6 +25,7 @@ class ProductTest extends TestCase {
         $response = $this->post('/products', $this->attributes());
         $product = Product::first();
         $this->assertCount(1, Product::all());
+        $this->assertCount(1, Price::all());
         $response->assertRedirect('/products/' . $product->id);
     }
 
@@ -53,5 +55,5 @@ class ProductTest extends TestCase {
         $this->assertEquals('Second product description', $updatedProduct->description);
         $response->assertRedirect('/products/' . $product->id);
     }
-
-}
+    
+   }

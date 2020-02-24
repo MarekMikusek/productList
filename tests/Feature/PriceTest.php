@@ -21,7 +21,6 @@ class PriceTest extends TestCase {
 
     private function setPrice() {
         return $this->post('/prices', $this->attributes());
-        ;
     }
 
     /** @test */

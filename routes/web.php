@@ -18,7 +18,8 @@ Route::delete('/products/{id}', 'ProductsController@destroy');
 Route::patch('/products/{product}', 'ProductsController@update');
 Route::get('/products', 'ProductsController@index');
 
-Route::post('/prices', 'PricesController@store');
+Route::get('/prices/create/{product}', 'PricesController@create');
+Route::post('/prices/{product}', 'PricesController@store');
 Route::patch('/prices/{price}', 'PricesController@update');
 Route::delete('/prices/{price}', 'PricesController@destroy');
 

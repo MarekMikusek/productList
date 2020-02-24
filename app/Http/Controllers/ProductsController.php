@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Price;
 
 class ProductsController extends Controller {
 
@@ -20,7 +21,11 @@ class ProductsController extends Controller {
     }
     
     public function show(Product $product) {
-        return view('products.show', compact('product'));
+//        dd($product);
+//        $prices = Price::where('product_id', $product->id);
+        return view('products.show', ['product'=>$product
+//                , 'prices'=>$prices
+                ]);
     }
     
         public function create() {
@@ -29,7 +34,11 @@ class ProductsController extends Controller {
     
     public function store() {
         $product = Product::create($this->validateRequest());
-//        dd($product);
+        Price::create([
+            'product_id'=>$product->id,
+            'name'=>'regular',
+            'value'=>0
+        ]);
         return redirect('/products/' . $product->id);
     }
     
@@ -40,6 +49,14 @@ class ProductsController extends Controller {
     }
 
     public function update(Product $product) {
+        $names = request('names');
+        $values = request('values');
+        foreach($names as $id=>$name){
+            Price::find($id)->update([
+                'name'=>$name,
+                'value'=>floatval($values[$id]),
+            ]);
+        }
         $product->update($this->validateRequest());
         return redirect('/products/'.$product->id);
     }
