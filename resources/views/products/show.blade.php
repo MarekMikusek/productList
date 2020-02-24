@@ -32,22 +32,28 @@
             @endforeach
             <div class="row">
             </div>
+            @if($is_authenticated)
             <button type="submit" class="btn btn-primary rounded mt-5">Update product</button>
+            @endif
         </form> 
+        @if($is_authenticated)
         <div class="mt-4">
-        <a href="/prices/create/{{$product->id}}"><button class="btn btn-info rounded">Add price</button></a>
+            <a href="/prices/create/{{$product->id}}"><button class="btn btn-info rounded">Add price</button></a>
         </div>
-        
+        @endif
+
     </div>
 
 
 </form>
 <div class="mt-4">
+    @if($is_authenticated)
     <form action="/products/{{$product->id}}" method="POST">
         @csrf
         @method('delete')
         <button type="submit" class="btn btn-danger rounded">Delete product</button>
     </form>
+    @endif
 </div>
 <div class="mt-4">
     <form action="/products" method="GET">

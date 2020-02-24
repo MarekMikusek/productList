@@ -17,31 +17,34 @@ class ProductsController extends Controller {
 
     public function index() {
         $products = Product::all();
-        return view('products.index', compact('products'));
+        return view('products.index', [
+            'products' => $products,
+            'is_authenticated' => !!auth()->user()
+        ]);
     }
-    
+
     public function show(Product $product) {
 //        dd($product);
 //        $prices = Price::where('product_id', $product->id);
-        return view('products.show', ['product'=>$product
-//                , 'prices'=>$prices
-                ]);
+        return view('products.show', ['product' => $product,
+            'is_authenticated' => !!auth()->user()
+        ]);
     }
-    
-        public function create() {
+
+    public function create() {
         return view('products.create');
     }
-    
+
     public function store() {
         $product = Product::create($this->validateRequest());
         Price::create([
-            'product_id'=>$product->id,
-            'name'=>'regular',
-            'value'=>0
+            'product_id' => $product->id,
+            'name' => 'regular',
+            'value' => 0
         ]);
         return redirect('/products/' . $product->id);
     }
-    
+
     public function destroy($id) {
         $product = Product::find($id);
         $product->delete();
@@ -51,14 +54,14 @@ class ProductsController extends Controller {
     public function update(Product $product) {
         $names = request('names');
         $values = request('values');
-        foreach($names as $id=>$name){
+        foreach ($names as $id => $name) {
             Price::find($id)->update([
-                'name'=>$name,
-                'value'=>floatval($values[$id]),
+                'name' => $name,
+                'value' => floatval($values[$id]),
             ]);
         }
         $product->update($this->validateRequest());
-        return redirect('/products/'.$product->id);
+        return redirect('/products/' . $product->id);
     }
-    
+
 }

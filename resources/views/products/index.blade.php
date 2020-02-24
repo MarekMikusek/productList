@@ -11,9 +11,10 @@
     @else
         <p>Sorry, no product yet!</p>
     @endif
-
+@if($is_authenticated)
     <a href="/products/create">
         <button class="btn btn-secondary">Add product</button>
     </a>
+@endif
 </div>
 @endsection
